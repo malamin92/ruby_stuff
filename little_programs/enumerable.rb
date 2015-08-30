@@ -91,7 +91,7 @@ end
 
 
 def multiply_els(array)
-	product = array.my_inject{|num, total| num *=total}
+	product = array.my_inject{|num, total| num *= total}
 	return product
 end
 
