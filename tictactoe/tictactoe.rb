@@ -15,7 +15,6 @@ class TicTacToe
 			puts "---------" unless index == 2
 		end
 		puts
-		puts
 	end
 
 	#determines whose move it is
