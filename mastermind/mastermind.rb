@@ -66,7 +66,6 @@ class MasterMind
 
 	def play
 		random_code
-		p @secret_code
 
 		12.times do |turn|
 			puts "This is turn:#{turn+1}, time to guess! \n"

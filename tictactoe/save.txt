@@ -1,0 +1,20 @@
+--- !ruby/object:TicTacToe
+player1: !ruby/object:TicTacToe::Player
+  name: Player One
+  shape: x
+player2: !ruby/object:TicTacToe::Player
+  name: Player Two
+  shape: o
+game_board: !ruby/object:TicTacToe::Board
+  board:
+  - - x
+    - " "
+    - " "
+  - - o
+    - o
+    - o
+  - - x
+    - x
+    - " "
+turn: 7
+winner: true

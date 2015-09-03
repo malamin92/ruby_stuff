@@ -1,5 +1,6 @@
 #a tic tac toe game
 class TicTacToe
+	require "yaml"
 	attr_accessor :player1, :player2
 	#crates playes and a game board to play tic tac toe
 	def initialize()
@@ -119,6 +120,7 @@ class TicTacToe
 
 		until @winner
 			move unless draw?
+			save
 		end
 	end
 
@@ -138,6 +140,16 @@ class TicTacToe
 			@name = name
 			@shape = shape
 		end
+	end
+
+	def save
+		yaml = YAML::dump(self)
+		File.open("save.txt", "w"){|file| file.write(yaml)}
+	end
+
+	def load
+		file = File.read("save.txt")
+		game = YAML::load_file(file)
 	end
 end
 
