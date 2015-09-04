@@ -33,12 +33,15 @@ class HangMan
 	end
 
 	def guess_letter
-		puts "Please enter a letter you'd like to guess:"
+		puts "Please enter a letter you'd like to guess, or enter 'save' to save your game ad go to menu:"
 		guess_input = gets.chomp.downcase
 
 		if guess_input.length == 1
 			check_guess(guess_input)
 		elsif guess_input == "save"
+			save
+			puts "Game was saved."
+			game_menu
 		else
 			puts "Your input is invalid, try again!"
 			guess_letter
@@ -79,21 +82,56 @@ class HangMan
 	end
 
 	def play
-		puts @word
 		while @chances_left > 0 && !win?
+			puts
+			puts "You have #{@chances_left} guesses left." unless win?
 			puts
 			print_bracket
 			puts
 			guess_letter
-			puts "You have #{@chances_left} guesses left." unless win?
 			puts "Sorry, you couldn't guess the word, you lose. :'( \nThe word was '#{@word}'." if @chances_left == 0
 		end
+
+		game_menu
 	end
 
+	def load_game
+		load
+		@word = @yaml.word
+		@bracket = @yaml.bracket
+		@chances_left = @yaml.chances_left
+		play
+	end
+
+	def save
+		file = File.new("save.txt", "w")
+		file.write(YAML::dump(self))
+	end
+
+	def load
+		file = File.read("save.txt")
+		@yaml = YAML::load(file)
+	end
+
+	def game_menu
+		puts "Enter an option:\n1. New Game \n2. Load Previous Game\n3. Quit"
+		option = gets.chomp.to_i
+		case option
+		when 1
+			game_setup
+			play
+		when 2
+			load_game
+		when 3
+			return 0
+		else
+			puts "Please enter option '1', '2' or '3'."
+			game_menu
+		end
+	end
 end
 
 game = HangMan.new
-game.game_setup
-game.play
+game.game_menu
 
 
