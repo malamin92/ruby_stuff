@@ -28,6 +28,20 @@ class MicroBlogger
 	  	end
   	end
 
+  	def followers_list
+  		screen_names = []
+  		@client.followers.each do |follower|
+  			screen_names << @client.user(follower).screen_name
+  		end
+  		screen_names
+  	end
+
+  	def spam_my_followers(message)
+  		followers_list.each do |follower|
+  			dm(follower, message)
+  		end
+  	end
+
   	def run
   		puts "Welcome to the JSL Twitter Client."
   		command = ""
@@ -43,6 +57,8 @@ class MicroBlogger
 	  				tweet(parts[1..-1].join(" "))
 	  			when "dm" then
 	  				dm(parts[1], parts[2..-1].join(" "))
+	  			when "spam" then
+	  				spam_my_followers(parts[1..-1].join(" "))
 	  			else
 	  				puts "Sorry, I don't know how to '#{command}'."
   			end
