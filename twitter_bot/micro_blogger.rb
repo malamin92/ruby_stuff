@@ -97,4 +97,8 @@ class MicroBlogger
 end
 
 blogger = MicroBlogger.new
-blogger.run
+i=1
+while i <= 99
+	blogger.tweet("#{i.to_s} voting for #fouseyTUBE for SHOW OF THE YEAR at the #STREAMYS")
+	i += 1
+end
