@@ -29,10 +29,26 @@ class BST
 	end
 
 	def build_tree(arr)
-		arr
+		#arr.shuffle!
 		arr.each do |data|
 			add_node(data, @root)
 		end
+	end
+
+	def breadth_first_search(value)
+		queue = [@root]
+		while !queue.empty?
+			current = queue.shift
+			if current.value == value
+				puts "Seach successful!"
+				return value
+			else
+				queue.push(current.left_child) if current.left_child
+				queue.push(current.right_child) if current.right_child
+			end
+		end
+		puts "The value was not found."
+		return nil
 	end
 
 	def depth_search_search(value)
@@ -59,4 +75,7 @@ end
 
 bst = BST.new
 p bst.build_tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-puts bst.depth_search_search(7)
+puts bst.breadth_first_search(67)
+
+
+
